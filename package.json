@@ -1,0 +1,50 @@
+{
+  "name": "dpa",
+  "version": "0.0.1",
+  "description": "Deploy anywhere. Configure with a single file.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --experimental-json-modules index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebringrose/dpa.git"
+  },
+  "keywords": [
+    "aws",
+    "azure",
+    "gcp",
+    "google",
+    "cloud",
+    "platform",
+    "amazon",
+    "web",
+    "services",
+    "microsoft",
+    "deployment",
+    "docker",
+    "scale",
+    "scalable",
+    "auto-scaling",
+    "scaling",
+    "secure",
+    "cheap",
+    "cost",
+    "effective",
+    "container",
+    "deploy",
+    "anywhere"
+  ],
+  "author": "Seb Ringrose (https://github.com/sebringrose)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sebringrose/dpa/issues"
+  },
+  "homepage": "https://github.com/sebringrose/dpa#readme",
+  "dependencies": {
+    "@aws-sdk/client-elastic-beanstalk": "^3.4.1",
+    "dotenv": "^8.2.0"
+  }
+}
