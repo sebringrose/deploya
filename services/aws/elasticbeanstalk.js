@@ -1,3 +1,4 @@
+import DPAdadper from '../../lib/adapter.js'
 import { 
     ElasticBeanstalkClient, 
     AbortEnvironmentUpdateCommand 
@@ -22,3 +23,7 @@ export default function (config) {
     let client = initialiseClient(config.region)
     console.log(client)
 }
+
+export default new DPAdadper({
+
+})

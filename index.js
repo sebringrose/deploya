@@ -1,6 +1,6 @@
 import { config as envConfig } from 'dotenv'
-import config from './deploy.config.json'
-import deploy from './services/index.js'
+import config from './dpa.config.json'
+import run from './services/index.js'
 
 envConfig()
-deploy(config)
+run(config)

@@ -1,17 +1,24 @@
 import fs from 'fs'
+import validateConfig from '../lib/validateConfig.js'
 
 export default async function (config) {
-    const target = config.target.toLowerCase()
-    const services = {}
+    // initial validatation of provided config (this could be done with types)
+    const configStatus = validateConfig(config)
+    if (configStatus) return console.log(configStatus)
 
-    await Promise.all(fs.readdirSync('./services')
-        .filter(x => !x.includes("."))
-        .map(async service => services[service] = await import(`./${service}/index.js`)))
+    // verify provided platform and service are supported
+    const platform = config.platform.toLowerCase()
+    const service = config.service.toLowerCase()
+    let missing = !fs.existsSync(`./services/${platform}`) ? 
+        "platform" : !fs.existsSync(`./services/${platform}/${service}.js`) ? 
+            "service" : null
 
-    if (!services[target]) return new Error(`
-        "target" attribute in deploy.config.json is invalid. \n
-        Please provide a supported cloud provider as target.
-    `)
+    if (missing) return console.log(new Error(`
+        Target ${missing} not supported. \n
+        Please see https://github.com/sebringrose/dpa for a list of supported platforms and services.
+    `))
     
-    services[target].default(config)
+    // import and initialise target adapter class with config
+    import(`./${platform}/${service}.js`)
+        .then(service => service.init(config))
 }
