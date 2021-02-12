@@ -26,4 +26,5 @@ export default async function (config) {
     // import and initialise target adapter class with config
     import(`./${platform}/${service}/index.js`)
         .then(service => service.default.init(config))
+        .then(result => console.log(result))
 }

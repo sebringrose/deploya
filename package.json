@@ -1,5 +1,5 @@
 {
-  "name": "dpa",
+  "name": "deploya",
   "version": "0.0.1",
   "description": "Deploy anywhere. Configure with a single file.",
   "main": "index.js",
@@ -10,10 +10,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sebringrose/dpa.git"
+    "url": "git+https://github.com/sebringrose/deploya.git"
   },
   "keywords": [
     "aws",
+    "ec2",
+    "eb",
+    "elasticbeanstalk",
     "azure",
     "gcp",
     "google",
@@ -40,9 +43,9 @@
   "author": "Seb Ringrose (https://github.com/sebringrose)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sebringrose/dpa/issues"
+    "url": "https://github.com/sebringrose/deploya/issues"
   },
-  "homepage": "https://github.com/sebringrose/dpa#readme",
+  "homepage": "https://github.com/sebringrose/deploya#readme",
   "dependencies": {
     "@aws-sdk/client-elastic-beanstalk": "^3.4.1",
     "dotenv": "^8.2.0"
