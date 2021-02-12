@@ -1,8 +1,9 @@
 {
-	"name": "example-app",
+	"application": "example-app",
+	"description": "an example application used for testing Deploya",
 	"environemnt": "staging",
 	"platform": "AWS",
-	"service": "EB",
+	"service": "elasticbeanstalk",
 	"region": "eu-west-2",
 	"hardware": {
 		"CPU": {
@@ -14,6 +15,12 @@
 		"disk": {
 			"size": 8
 		}	
+	},
+	"network": {
+		"ports": [
+			80,
+			443
+		]
 	},
 	"scaling": {
 		"min_servers": 1,
