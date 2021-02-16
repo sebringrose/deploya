@@ -40,14 +40,10 @@
     "deploy",
     "anywhere"
   ],
-  "author": "Seb Ringrose (https://github.com/sebringrose)",
+  "author": "Seb Ringrose (https://github.com/sebringrose) <sebringrose@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/sebringrose/deploya/issues"
   },
-  "homepage": "https://github.com/sebringrose/deploya#readme",
-  "dependencies": {
-    "@aws-sdk/client-elastic-beanstalk": "^3.4.1",
-    "dotenv": "^8.2.0"
-  }
+  "homepage": "https://github.com/sebringrose/deploya#readme"
 }

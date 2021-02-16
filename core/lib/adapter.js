@@ -1,4 +1,4 @@
-export default class DPAdadper {
+export default class DeployaAdadper {
     constructor(
         getCredentials,
         getClient,

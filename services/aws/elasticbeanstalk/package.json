@@ -1,0 +1,29 @@
+{
+  "name": "aws-elasticbeanstalk",
+  "version": "0.0.1",
+  "description": "Deploya adapter for AWS Elastic Beanstalk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebringrose/deploya.git"
+  },
+  "keywords": [
+    "aws",
+    "ec2",
+    "eb",
+    "elasticbeanstalk",
+    "deploya",
+    "amazon",
+    "web",
+    "services"
+  ],
+  "author": "Seb Ringrose (https://github.com/sebringrose) <sebringrose@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-elastic-beanstalk": "^3.4.1",
+    "dotenv": "^8.2.0"
+  }
+}
