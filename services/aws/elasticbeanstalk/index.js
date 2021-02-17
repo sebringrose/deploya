@@ -1,4 +1,3 @@
-import Adadper from '../../../lib/adapter.js'
 import { 
     ElasticBeanstalkClient,
     DescribeApplicationsCommand,
@@ -21,7 +20,8 @@ const getClient = async (config, credentials) => {
         Define as AWS root user secret access key in .env file.
     `)
 
-    return new ElasticBeanstalkClient({ region: config.region, ...credentials })
+    const client = new ElasticBeanstalkClient({ region: config.region, ...credentials })
+    return client
 }
 
 const checkApplication = async (config, client) => {
@@ -67,16 +67,26 @@ const updateServices = async () => {
     return true
 }
 
-export default new Adadper(
-    getCredentials,
-    getClient,
-    checkApplication,
-    createApplication,
-    updateApplication,
-    checkEnvironment,
-    createEnvironment,
-    updateEnvironment,
-    checkServices,
-    createServices,
-    updateServices
-)
+export default {
+    setup: {
+        credentials: getCredentials,
+        client: getClient
+    },
+    stages: {
+        application: {
+            check: checkApplication,
+            create: createApplication,
+            update: updateApplication
+        },
+        environment: {
+            check: checkEnvironment,
+            create: createEnvironment,
+            update: updateEnvironment
+        },
+        services: {
+            check: checkServices,
+            create: createServices,
+            update: updateServices
+        }
+    }
+}

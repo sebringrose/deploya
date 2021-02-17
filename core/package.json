@@ -2,12 +2,11 @@
   "name": "deploya",
   "version": "0.0.1",
   "description": "Deploy anywhere. Configure with a single file.",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --experimental-json-modules index.js"
+  "main": "bin/index.js",
+  "bin": {
+    "deploya": "bin/index.js"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sebringrose/deploya.git"
@@ -41,7 +40,7 @@
     "anywhere"
   ],
   "author": "Seb Ringrose (https://github.com/sebringrose) <sebringrose@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/sebringrose/deploya/issues"
   },

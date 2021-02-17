@@ -1,11 +1,12 @@
 {
-  "name": "aws-elasticbeanstalk",
+  "name": "@deploya/aws-elasticbeanstalk",
   "version": "0.0.1",
   "description": "Deploya adapter for AWS Elastic Beanstalk",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sebringrose/deploya.git"

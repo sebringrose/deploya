@@ -1,4 +1,4 @@
-import exampleConfig from '../deploya.config.example.json'
+import exampleConfig from '../deploya.config.example.js'
 
 export default function (config) {
     const exampleKeys = Object.keys(exampleConfig)

@@ -1,5 +1,6 @@
 import validateConfig from './validateConfig.js'
-import services from '../supportedServices.json'
+import Adapter from './adapter.js'
+import services from '../supported.services.js'
 
 export default async function (config) {
     console.log("Starting deployment with Deploya...")
@@ -9,21 +10,23 @@ export default async function (config) {
     const configStatus = validateConfig(config)
     if (configStatus) return console.log(configStatus)
 
-    console.log(`target platform: ${platform}`)
-    console.log(`target service: ${service}`)
-
     // verify provided platform and service are supported
     const platform = config.platform.toLowerCase()
     const service = config.service.toLowerCase()
+    console.log(`target platform: ${platform}`)
+    console.log(`target service: ${service}`)
+
     let missing = !services.hasOwnProperty(platform) ? "platform" : 
-        !services[platform].hasOwnProperty(service) ? "service" : null
+        !services[platform].hasOwnProperty(service) || !services[platform][service] ? "service" : null
     if (missing) return console.log(new Error(`
         Target ${missing} not supported. \n
-        Please see https://github.com/sebringrose/deploya for a list of supported platforms and services.
+        Please see https://github.com/sebringrose/deploya \nfor supported platforms and services.
     `))
     
-    // import and initialise target adapter class with config
-    import(`@deploya/${platform}-${service}`)
-        .then(service => service.default.init(config))
+    // import and run target adapter class with config
+    let modulePath = `${process.cwd()}/node_modules/@deploya/${platform}-${service}/index.js`
+    import(modulePath)
+        .then(service => new Adapter(service.default).deploy(config))
         .then(result => console.log(result))
+        .catch(e => console.log(e))
 }

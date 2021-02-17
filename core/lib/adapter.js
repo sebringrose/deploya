@@ -1,64 +1,29 @@
-export default class DeployaAdadper {
+export default class Adadper {
     constructor(
-        getCredentials,
-        getClient,
-        checkApplication,
-        createApplication,
-        updateApplication,
-        checkEnvironment,
-        createEnvironment,
-        updateEnvironment,
-        checkServices,
-        createServices,
-        updateServices
+        functions
     ) {
         // bind adapter functions
-        this.adapterFunctions = {
-            setup: {
-                credentials: getCredentials,
-                client: getClient
-            },
-            stages: {
-                application: {
-                    check: checkApplication,
-                    create: createApplication,
-                    update: updateApplication
-                },
-                environment: {
-                    check: checkEnvironment,
-                    create: createEnvironment,
-                    update: updateEnvironment
-                },
-                services: {
-                    check: checkServices,
-                    create: createServices,
-                    update: updateServices
-                }
-            }
-        }
+        this.adapterFunctions = functions
     }
 
-    async getClient(config) {
-        let credentials, client
+    async try(fcn, args) {
+        let v
+        try { v = await fcn(...args) } catch (e) { console.log(e); return e }
+        return v
+    }
 
-        // credentials
+    async deploy(config) {
+        // get credentials
         console.log(`getting credentials for ${config.platform}...`)
-        try {
-            credentials = await this.adapterFunctions.setup.credentials(config)
-        } catch(e) { return e }
+        let credentials = await this.try(this.adapterFunctions.setup.credentials, [config])
+        if (credentials instanceof Error) return console.log(credentials)
         console.log(`acquired ${config.platform} credentials`)
 
-        // client
+        // get client
         console.log(`creating client for ${config.service}...`)
-        try {
-            client = await this.adapterFunctions.setup.client(config, credentials)
-        } catch(e) { return e }
+        let client = await this.try(this.adapterFunctions.setup.client, [config, credentials])
+        if (client instanceof Error) return console.log(client)
         console.log(`created ${config.service} client`)
-        return client
-    }
-
-    async init(config) {
-        const client = await this.getClient(config)
 
         // run adapter stage function sequence
         const keys = Object.keys(this.adapterFunctions.stages)
@@ -66,25 +31,21 @@ export default class DeployaAdadper {
         for (let i=0; i<stages.length; i++) {
 
             // check if exists
-            let check
             console.log(`checking for existing ${keys[i]}...`)
-            try {
-                check = await stages[i].check(config, client)
-            } catch(e) { return e }
+            let check = await this.try(stages[i].check, [config, client])
+            if (check instanceof Error) return console.log(check)
             console.log(`existing ${keys[i]} ${check}`)
 
             // update if exists, create if not
             if (check) {
-                console.log(`existing ${keys[i]} ${check}`)
-                try {
-                    await stages[i].update(config, client)  
-                } catch(e) { return e }
+                console.log(`updating ${keys[i]} ${check}`)
+                let update = await this.try(stages[i].update, [config, client])  
+                if (update instanceof Error) return console.log(update)
                 console.log(`updated ${keys[i]}`)
             } else {
                 console.log(`deploying new ${keys[i]}...`)
-                try {  
-                    await stages[i].create(config, client)
-                } catch(e) { return e }
+                let create = await this.try(stages[i].create, [config, client])
+                if (create instanceof Error) return console.log(create)
                 console.log(`deployed ${keys[i]}`)
             }
         }

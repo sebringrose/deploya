@@ -1,4 +1,4 @@
-{
+export default {
 	"application": "example-app",
 	"description": "an example application used for testing Deploya",
 	"environemnt": "staging",
